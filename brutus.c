@@ -21,6 +21,10 @@ void permute(char *str, int start, int n){
 		}
 }
 
+void combine(char *str){
+
+}
+
 int main(){
 	char line[10], str[10];
 	int n, op;
