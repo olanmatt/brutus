@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 
 void swap(char *x, char *y){
 	char w;
@@ -8,39 +7,30 @@ void swap(char *x, char *y){
 	*y = w;
 }
 
-void permute(char *str, int start, int n){
+// Code originally from StackOverflow user Dukeling
+void permute(char *str, int start, int n, int minLength, int maxLength){
 	int i;
 
-	if(start == n-1)
+	if (start >= minLength){
+		char temp = str[start]; // store the character, so we don't lose it
+		str[start] = 0; // 0x00 - end of string
 		printf("%s\n", str);
-	else
-		for(i = start; i < n; i++){
-			swap(str+i, str+start);
-			permute(str, start+1, n);
-			swap(str+i, str+start);
-		}
-}
-
-void combine(char *str){
-
-}
-
-int main(){
-	char line[10], str[10];
-	int n, op;
-
-	printf("Enter a string: ");
-	if( fgets(line, 10, stdin) == NULL ){
-		printf("Ops! Early stop\n");
-		return 1;
+		str[start] = temp;
 	}
 
-	if( sscanf(line, "%s", str) != 1 ){
-		printf("Next time put some valid characters\n");
-		return 1;
-	}
+	if (start == maxLength)
+		return;
 
-	n = strlen(str);
-	permute(str, 0, n);
+	for (i = start; i < n; i++){
+		swap(str+i, str+start);
+		permute(str, start+1, n, minLength, maxLength);
+		swap(str+i, str+start);
+	}
+}
+
+int main(void) {
+	char str[] = "hello";
+	permute(str, 0, 5, 2, 4);
 	return 0;
 }
+
