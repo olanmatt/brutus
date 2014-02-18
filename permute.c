@@ -10,17 +10,18 @@ void permute(char *str, int min, int max){
 
 	// Setting up initial values for array
 	for(int i = 0; i <= max; i++)
-		if ( i < min )
+		if (i < min)
 			per[i] = 0;
 		else
 			per[i] = -1;
-	prnt(str, per);
 
 	// For length in given range
 	for(int x = min; x <= max; x++){
 
 		// Permutation for length
 		for(int y = 0; y < pow(len, ind); y++){
+
+			prnt(str,per);
 
 			// Incrementing and printing
 			for(int i = 1; i < len; i++){
@@ -29,16 +30,19 @@ void permute(char *str, int min, int max){
 			}
 
 			// Normalizing values
-			for(int i = ind; i >= 0; i--){
-				if(per[i] == len-1){
-					per[i] = 0;
-					per[i - 1]++;
+			for(int i = ind; i > 0; i--){
+				if(per[i] == len - 1){
+					if(per[i - 1] != len - 1){
+						per[i] = 0;
+						per[i - 1]++;
+					}else{
+						per[i] = 0;
+					}
 				}
 			}
-			// TODO fix printing one too many times
-			prnt(str, per);
 		}
 		ind++;
 		per[ind] = 0;
+		per[0] = 0;
 	}
 }
