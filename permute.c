@@ -35,14 +35,15 @@ void permute(char *str, int min, int max){
 					if(per[i - 1] != len - 1){
 						per[i] = 0;
 						per[i - 1]++;
+						i--;
 					}else{
 						per[i] = 0;
 					}
 				}
 			}
 		}
-		ind++;
+		ind++; // increase number of chars
 		per[ind] = 0;
-		per[0] = 0;
+		per[0] = 0; // reset leading char
 	}
 }
