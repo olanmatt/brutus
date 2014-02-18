@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 #include "butils.h"
 
 void permute(char *str, int min, int max){
@@ -15,21 +16,29 @@ void permute(char *str, int min, int max){
 			per[i] = -1;
 	prnt(str, per);
 
-	// Incrementing and printing
-	for(int i = 1; i < len; i++){
-		per[ind]++;
-		prnt(str, per);
-	}
+	// For length in given range
+	for(int x = min; x <= max; x++){
 
-	// Normalizing values
-	for(int i = ind; i >= 0; i--){
-		if(per[i] == str[len - 1]){
-			// if i = 0, break
-			per[i] = 0;
-			per[i - 1]++;
+		// Permutation for length
+		for(int y = 0; y < pow(len, ind); y++){
+
+			// Incrementing and printing
+			for(int i = 1; i < len; i++){
+				per[ind]++;
+				prnt(str, per);
+			}
+
+			// Normalizing values
+			for(int i = ind; i >= 0; i--){
+				if(per[i] == len-1){
+					per[i] = 0;
+					per[i - 1]++;
+				}
+			}
+			// TODO fix printing one too many times
+			prnt(str, per);
 		}
+		ind++;
+		per[ind] = 0;
 	}
-
-	prnt(str, per);
-
 }
