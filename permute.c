@@ -1,23 +1,35 @@
 #include <stdio.h>
+#include <string.h>
 #include "butils.h"
 
-// Code originally from StackOverflow user Dukeling
-void permute(char *str, int start, int n, int minLength, int maxLength){
-	int i;
+void permute(char *str, int min, int max){
+	int per[max];
+	int len = strlen(str);
+	int ind = min - 1;
 
-	if (start >= minLength){
-		char temp = str[start]; // store the character, so we don't lose it
-		str[start] = 0; // 0x00 - end of string
-		printf("%s\n", str);
-		str[start] = temp;
+	// Setting up initial values for array
+	for(int i = 0; i <= max; i++)
+		if ( i < min )
+			per[i] = 0;
+		else
+			per[i] = -1;
+	prnt(str, per);
+
+	// Incrementing and printing
+	for(int i = 1; i < len; i++){
+		per[ind]++;
+		prnt(str, per);
 	}
 
-	if (start == maxLength)
-		return;
-
-	for (i = start; i < n; i++){
-		swap(str+i, str+start);
-		permute(str, start+1, n, minLength, maxLength);
-		swap(str+i, str+start);
+	// Normalizing values
+	for(int i = ind; i >= 0; i--){
+		if(per[i] == str[len - 1]){
+			// if i = 0, break
+			per[i] = 0;
+			per[i - 1]++;
+		}
 	}
+
+	prnt(str, per);
+
 }

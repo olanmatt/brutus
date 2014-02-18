@@ -1,1 +1,1 @@
-void permute(char *, int, int, int, int);
+void permute(char *, int, int);
