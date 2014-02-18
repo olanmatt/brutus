@@ -21,12 +21,16 @@ void permute(char *str, int min, int max){
 		// Permutation for length
 		for(int y = 0; y < pow(len, ind); y++){
 
-			prnt(str,per);
+			for(int i = 0; per[i] != -1; i++)
+				printf("%c", str[per[i]]);
+			printf("\n");
 
 			// Incrementing and printing
 			for(int i = 1; i < len; i++){
 				per[ind]++;
-				prnt(str, per);
+				for(int i = 0; per[i] != -1; i++)
+					printf("%c", str[per[i]]);
+				printf("\n");
 			}
 
 			// Normalizing values
