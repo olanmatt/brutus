@@ -80,8 +80,11 @@ int main (int argc, char **argv){
 		}
 	}
 
-	char str[] = "abcd";
-	permute(str, min, max);
-	loadCharset();
+	char charset[256];
+	int setlen;
+	loadCharset(1, charset, &setlen);
+	fwrite(charset, setlen, 1, stdout);
+	printf("length: %d\n", setlen);
+	permute(charset, setlen, min, max);
 	exit(0);
 }

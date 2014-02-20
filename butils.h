@@ -12,4 +12,4 @@ unsigned int GetFileLen(FILE*);
 string TrimString(string);
 bool ReadLinesFromFile(string, vector<string>);
 bool SeperateString(string, string, vector<string>);
-char* loadCharset();
+int loadCharset(int, char *, int *);

@@ -3,9 +3,8 @@
 #include <math.h>
 #include "butils.h"
 
-void permute(char *str, int min, int max){
+void permute(char *str, int len, int min, int max){
 	int per[max];
-	int len = strlen(str);
 	int ind = min - 1;
 
 	// Setting up initial values for array

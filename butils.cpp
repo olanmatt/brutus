@@ -100,22 +100,17 @@ bool SeperateString(string s, string sSeperator, vector<string>& vPart){
 	return true;
 }
 
-char* loadCharset(){ //string sName){
+int loadCharset(int setname, char charset[], int *setlen){ //string sName){
 
-	string sName = "alpha";
-
-	char m_PlainCharset[256];
-	int m_nPlainCharsetLen;
-	string m_sPlainCharsetName;
-	string m_sPlainCharsetContent;
+	string sName = "alpha"; // TODO parse name
 
 	if (sName == "byte"){
-		for (int i = 0x00; i <= 0xff; i++)
-			m_PlainCharset[i] = i;
-		m_nPlainCharsetLen = 256;
-		m_sPlainCharsetName = sName;
-		m_sPlainCharsetContent = "0x00, 0x01, ... 0xff";
-		return m_PlainCharset;
+		// TODO printf will not print 0x00
+		for (int i = 0x00; i <= 0xff; i++){
+			charset[i] = i;
+		}
+		*setlen = 256;
+		return 0;
 	}
 
 	vector<string> vLine;
@@ -128,6 +123,7 @@ char* loadCharset(){ //string sName){
 
 			vector<string> vPart;
 			if (SeperateString(vLine[i], "=", vPart)){
+				
 				// sCharsetName
 				string sCharsetName = TrimString(vPart[0]);
 				if (sCharsetName == "")
@@ -144,6 +140,7 @@ char* loadCharset(){ //string sName){
 						break;
 					}
 				}
+				
 				if (!fCharsetNameCheckPass){
 					printf("invalid charset name %s in charset configuration file\n", sCharsetName.c_str());
 					continue;
@@ -167,11 +164,9 @@ char* loadCharset(){ //string sName){
 
 				// Is it the wanted charset?
 				if (sCharsetName == sName){
-					m_nPlainCharsetLen = sCharsetContent.size();
-					memcpy(m_PlainCharset, sCharsetContent.c_str(), m_nPlainCharsetLen);
-					m_sPlainCharsetName = sCharsetName;
-					m_sPlainCharsetContent = sCharsetContent;
-					return m_PlainCharset;
+					*setlen = strlen(sCharsetContent.c_str()); //sCharsetContent.size();
+					memcpy(charset, sCharsetContent.c_str(), strlen(sCharsetContent.c_str()));
+					return 0;
 				}
 			}
 		}
@@ -179,6 +174,5 @@ char* loadCharset(){ //string sName){
 	}
 	else
 		printf("can't open charset configuration file\n");
-
-	return m_PlainCharset;
+	return 1;
 }
