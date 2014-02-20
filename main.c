@@ -29,21 +29,22 @@ int main (int argc, char **argv){
 	int c;
 	int min = 1;
 	int max = 7;
+	int no_replace = 0;
 	char str[] = "abcd";
 
+	static struct option long_options[] = {
+		{"charset",		required_argument,	0, 'c'},
+		{"min",			required_argument,	0, 'm'},
+		{"max",			required_argument,	0, 'M'},
+		{"no-replace",	no_argument,		&no_replace, 1},
+		{"help",		no_argument,		0, 'h'},
+		{"version",		no_argument,		0, 'V'} 
+	};
+
+	int option_index = 0;
 
 	while (1){
-		static struct option long_options[] = {
-			{"charset",	required_argument,	0, 'c'},
-			{"min",		required_argument,	0, 'm'},
-			{"max",		required_argument,	0, 'M'},
-			{"help",	no_argument,		0, 'h'},
-			{"version",	no_argument,		0, 'V'}, 
-			{0, 0, 0, 0}
-		};
-		
-		int option_index = 0;
-		c = getopt_long(argc, argv, "h:c:m:M:", long_options, &option_index);
+		c = getopt_long(argc, argv, "c:m:M:w:", long_options, &option_index);
 
 		if (c == -1)
 			break;
@@ -57,7 +58,7 @@ int main (int argc, char **argv){
 			case 'V':
 				version();
 				exit(0);
-			
+
 			case 'c':
 				printf ("option -c with value `%s'\n", optarg);
 				break;
@@ -74,14 +75,6 @@ int main (int argc, char **argv){
 				printf("Try `cat --help' for more information.");
 				exit(1);
 		}
-	}
-
-	/* Print any remaining command line arguments (not options). */
-	if (optind < argc){
-		printf ("non-option ARGV-elements: ");
-		while (optind < argc)
-			printf ("%s ", argv[optind++]);
-		putchar ('\n');
 	}
 
 	permute(str, min, max);
