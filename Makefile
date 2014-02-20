@@ -8,8 +8,11 @@ brutus: main.c permute.o butils.o
 permute.o: permute.c butils.o
 	g++ -c permute.c butils.o
 
-butils.o: butils.c
+butils.o: butils.c charset.o
 	g++ -c butils.c
+
+charset.o: charset.cpp
+	g++ -c charset.cpp
 
 clean:
 	rm -rf *o brutus
