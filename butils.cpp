@@ -1,8 +1,3 @@
-/*
- *	RainbowCrack - a general propose implementation of Philippe Oechslin's faster time-memory trade-off technique.
- *	Copyright (C) Zhu Shuanglei <shuanglei@hotmail.com>
- */
-
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
@@ -10,9 +5,20 @@
 #include <string>
 #include <vector>
 
-//////////////////////////////////////////////////////////////////////
-
 using namespace std;
+
+void swap(char *x, char *y){
+	char w;
+	w = *x;
+	*x = *y;
+	*y = w;
+}
+
+void prnt(char *str, int *per){
+	for(int i = 0; per[i] != -1; i++)
+		printf("%c", str[per[i]]);
+	printf("\n");
+}
 
 unsigned int GetFileLen(FILE* file){
 	unsigned int pos = ftell(file);
@@ -94,9 +100,11 @@ bool SeperateString(string s, string sSeperator, vector<string>& vPart){
 	return true;
 }
 
-bool LoadCharset(string sName){
+char* loadCharset(){ //string sName){
 
-	unsigned char m_PlainCharset[256];
+	string sName = "alpha";
+
+	char m_PlainCharset[256];
 	int m_nPlainCharsetLen;
 	string m_sPlainCharsetName;
 	string m_sPlainCharsetContent;
@@ -107,7 +115,7 @@ bool LoadCharset(string sName){
 		m_nPlainCharsetLen = 256;
 		m_sPlainCharsetName = sName;
 		m_sPlainCharsetContent = "0x00, 0x01, ... 0xff";
-		return true;
+		return m_PlainCharset;
 	}
 
 	vector<string> vLine;
@@ -163,7 +171,7 @@ bool LoadCharset(string sName){
 					memcpy(m_PlainCharset, sCharsetContent.c_str(), m_nPlainCharsetLen);
 					m_sPlainCharsetName = sCharsetName;
 					m_sPlainCharsetContent = sCharsetContent;
-					return true;
+					return m_PlainCharset;
 				}
 			}
 		}
@@ -172,9 +180,5 @@ bool LoadCharset(string sName){
 	else
 		printf("can't open charset configuration file\n");
 
-	return false;
-}
-
-int main(){
-	LoadCharset("mixalpha-numeric-all-space");
+	return m_PlainCharset;
 }

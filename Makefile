@@ -1,5 +1,3 @@
-# From: http://mrbook.org/tutorials/make/
-
 all: brutus
 
 brutus: main.c permute.o butils.o
@@ -8,11 +6,8 @@ brutus: main.c permute.o butils.o
 permute.o: permute.c butils.o
 	g++ -c permute.c butils.o
 
-butils.o: butils.c charset.o
-	g++ -c butils.c
-
-charset.o: charset.cpp
-	g++ -c charset.cpp
+butils.o: butils.cpp
+	g++ -c butils.cpp
 
 clean:
 	rm -rf *o brutus

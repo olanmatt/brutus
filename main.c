@@ -5,9 +5,6 @@
 #include "butils.h"
 #include "permute.h"
 
-// char charset[256];
-// char setlen;
-
 void usage(){
 	printf("Usage: brutus [-w] [-c charset] [-m min] [-M max]\n");
 	printf("Generate string permutations of charset to standard output.\n\n");
@@ -27,45 +24,6 @@ void version(){
 	printf("There is NO WARRANTY, to the extent permitted by law.\n\n");
 	printf("Written by Matt Olan.");
 
-}
-
-void loadCharset(){
-
-	FILE *fp;
-	char *line = NULL;
-	size_t len = 0;
-	ssize_t read;
-
-
-	char* token;
-	char* string;
-	char* tofree;
-
-	fp = fopen("./charset.txt", "r");
-	if (fp == NULL){
-		printf("Missing charset definition file.");
-		exit(1);
-	}
-
-	// charset read loop
-	while ((read = getline(&line, &len, fp)) != -1) {
-
-		// ignoring comments
-		if(line[0] == '#' || line[0] == '\n'){
-			continue;
-
-			// parsing charset
-		}else if(line != NULL){
-			// printf("Retrieved line of length %zu :\n", read);
-			tofree = line;
-			while ((token = strsep(&line, "=")) != NULL){
-				printf("%s\n", token);
-			}
-			free(tofree);
-		}
-	}
-
-	free(line);
 }
 
 int main (int argc, char **argv){
@@ -122,7 +80,8 @@ int main (int argc, char **argv){
 		}
 	}
 
-	//permute(charset, min, max);
+	char str[] = "abcd";
+	permute(str, min, max);
 	loadCharset();
 	exit(0);
 }
