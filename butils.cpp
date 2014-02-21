@@ -100,9 +100,9 @@ bool SeperateString(string s, string sSeperator, vector<string>& vPart){
 	return true;
 }
 
-int loadCharset(int setname, char charset[], int *setlen){ //string sName){
+int loadCharset(char setname[], char charset[], int *setlen){ //string sName){
 
-	string sName = "alpha"; // TODO parse name
+	string sName(setname);
 
 	if (sName == "byte"){
 		// TODO printf will not print 0x00

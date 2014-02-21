@@ -32,6 +32,11 @@ int main (int argc, char **argv){
 	int min = 1;
 	int max = 7;
 	int no_replace = 0;
+	char charset[256];
+	int setlen;
+
+	char DEFAULT_CHARSET[] = "mixalpha-numeric-all";
+	loadCharset(DEFAULT_CHARSET, charset, &setlen);
 
 	static struct option long_options[] = {
 		{"charset",		required_argument,	0, 'c'},
@@ -62,8 +67,7 @@ int main (int argc, char **argv){
 
 			case 'c':
 				printf ("option -c with value `%s'\n", optarg);
-				// charset = loadCharset(optarg);
-				// setlen = strlen(charset);
+				loadCharset(optarg, charset, &setlen);
 				break;
 
 			case 'm':
@@ -80,11 +84,8 @@ int main (int argc, char **argv){
 		}
 	}
 
-	char charset[256];
-	int setlen;
-	loadCharset(1, charset, &setlen);
-	fwrite(charset, setlen, 1, stdout);
-	printf("length: %d\n", setlen);
+	// fwrite(charset, setlen, 1, stdout);
+	// printf("length: %d\n", setlen);
 	permute(charset, setlen, min, max);
 	exit(0);
 }
