@@ -160,7 +160,7 @@ int loadCharset(char setname[], char charset[], int *setlen){ //string sName){
 					continue;
 				}
 
-				printf("%s = [%s]\n", sCharsetName.c_str(), sCharsetContent.c_str());
+				// printf("%s = [%s]\n", sCharsetName.c_str(), sCharsetContent.c_str());
 
 				// Is it the wanted charset?
 				if (sCharsetName == sName){

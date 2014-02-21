@@ -66,7 +66,6 @@ int main (int argc, char **argv){
 				exit(0);
 
 			case 'c':
-				printf ("option -c with value `%s'\n", optarg);
 				loadCharset(optarg, charset, &setlen);
 				break;
 
