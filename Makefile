@@ -1,7 +1,7 @@
 all: brutus
 
 test: brutus
-	./brutus 1> /dev/null
+	./brutus -c numeric 1> /dev/null
 
 brutus: main.c permute.o butils.o
 	g++ main.c permute.o butils.o -o brutus
