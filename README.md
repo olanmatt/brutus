@@ -28,8 +28,6 @@ This will generate all numeric permutations of length 5 to 20, and can also be w
 
 	$ brutus -c numeric -m 5 -M 20
 
-brutus will (not yet implemented) also allow for permutation without replacement for brute-forcing over a more specific character set, or for solving anagrams :).
-
 Character set definitions are as follows (found in `charset.txt`),
 
 	byte                        = [0x00 ... 0xFF]
